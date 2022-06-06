@@ -1,5 +1,8 @@
-pragma solidity ^0.4.24;
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
 
+
+  
 /**
  * @title Roles
  * @dev Library for managing addresses assigned to a Role.
