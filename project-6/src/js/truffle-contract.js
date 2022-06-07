@@ -25,7 +25,7 @@ var contract = (function(module) {
     return this.provider.sendAsync.apply(this.provider, arguments);
   };
 
-  var BigNumber = (new Web3()).toBigNumber(0).constructor;
+  var BigNumber = Web3.utils.BN;
 
   var Utils = {
     is_object: function(val) {
@@ -255,8 +255,7 @@ var contract = (function(module) {
 
     if (typeof contract == "string") {
       var address = contract;
-      var contract_class = constructor.web3.eth.contract(this.abi);
-      contract = contract_class.at(address);
+      var contract = new constructor.web3.eth.Contract(this.abi, address);
     }
 
     this.contract = contract;
@@ -348,7 +347,7 @@ var contract = (function(module) {
         }
       }).then(function() {
         return new Promise(function(accept, reject) {
-          var contract_class = self.web3.eth.contract(self.abi);
+          var contract_class = new self.web3.eth.Contract(self.abi);
           var tx_params = {};
           var last_arg = args[args.length - 1];
 
@@ -483,7 +482,7 @@ var contract = (function(module) {
           }
         }
 
-        self.web3.version.getNetwork(function(err, result) {
+        self.web3.eth.net.getId(function(err, result) {
           if (err) return reject(err);
 
           var network_id = result.toString();
